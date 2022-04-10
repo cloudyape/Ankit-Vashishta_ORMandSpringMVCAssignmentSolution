@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="color:#fff;text-transform:uppercase;background: green;padding:20px">Customer Relationship Management</h1>
+    <h3>Save Customer</h3>
+    <div style="margin: 10px;">
+        <label>First Name</label>
+        <input type="text" id="firstname"><br />
+    </div>
+
+    <div style="margin: 10px;">
+        <label>Last Name</label>
+        <input type="text" id="lastname"><br />
+    </div>
+
+    <div style="margin: 10px;">
+        <label>Email</label>
+        <input type="text" id="email"><br />
+    </div>
+    <button onclick="loadDoc()">Save</button>
+
+    <script>
+        function loadDoc() {
+            var postObj = [{
+                firstname : document.getElementById("firstname").value,
+                lastname : document.getElementById("lastname").value,
+                email : document.getElementById("email").value,
+            }];
+            let post = JSON.stringify(postObj)
+
+            const url = "http://localhost:8080/save"
+            let xhr = new XMLHttpRequest()
+
+            xhr.open('POST', url, true)
+            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+            xhr.send(post);
+
+            xhr.onload = function () {
+                if (xhr.status === 201) {
+                    window.location.href = "index.html";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

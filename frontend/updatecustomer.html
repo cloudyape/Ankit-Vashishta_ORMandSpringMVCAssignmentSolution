@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1 style="color:#fff;text-transform:uppercase;background: green;padding:20px">Customer Relationship Management</h1>
+    <h3>Save Customer</h3>
+    <div style="margin: 10px;">
+        <label>First Name</label>
+        <input type="text" id="firstname"><br />
+    </div>
+
+    <div style="margin: 10px;">
+        <label>Last Name</label>
+        <input type="text" id="lastname"><br />
+    </div>
+
+    <div style="margin: 10px;">
+        <label>Email</label>
+        <input type="text" id="email"><br />
+    </div>
+    <button onclick="loadDoc()">Save</button>
+
+    <script>
+        function loadDoc() {
+            var postObj = [{
+                firstname : document.getElementById("firstname").value,
+                lastname : document.getElementById("lastname").value,
+                email : document.getElementById("email").value,
+            }];
+            let post = JSON.stringify(postObj)
+            let id = window.location.href.split('?updateid=');
+            const url = "http://localhost:8080/update/" + id[1];
+            $.ajax({
+                type: "PUT",
+                dataType:'json',
+                url: url,
+                data: JSON.stringify(post),
+                processData: false,
+                contentType: "application/json; charset=utf-8"
+            });
+        }
+    </script>
+</body>
+
+</html>
